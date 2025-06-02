@@ -1,0 +1,107 @@
+.firstContent {
+  width: 100%;
+}
+
+.firstWrapper {
+  width: 80%;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  height: 427px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.firstWrapper h1 {
+  font-size: 54px;
+}
+
+.first {
+  background: none;
+  font-size: 22px;
+}
+
+.secondContent {
+  width: 100%;
+  background: #17171a;
+}
+
+.secondWrapper {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.data {
+  background: #000;
+  text-align: center;
+  padding: 10px 30px;
+  margin: 0;
+  line-height: 1.24;
+  border: gray solid 4px;
+  color: white;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.boxcontent h2 {
+  font-size: 32px;
+  color: #f94747f2;
+}
+
+.information {
+  padding: 10px 30px;
+}
+
+.copies {
+  font-size: 25px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.text1 {
+  font-size: 18px;
+}
+
+.text2 {
+  color: cadetblue;
+  font-weight: 600;
+}
+
+.book {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+  border: red solid 2.5px;
+}
+
+.book p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media (max-width: 360px) {
+  .secondWrapper {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+
+  .firstWrapper h1 {
+    font-size: 26px !important;
+  }
+
+  .data {
+    height: auto !important;
+  }
+}

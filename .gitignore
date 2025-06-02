@@ -1,0 +1,12 @@
+# Node
+backend/node_modules/
+backend/bookings.json
+.env
+
+# React
+frontend/node_modules/
+build/
+dist/
+
+# Misc
+.DS_Store
