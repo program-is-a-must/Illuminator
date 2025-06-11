@@ -1,67 +1,68 @@
 const express = require("express");
-const fs = require("fs");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/api/bookings", (req, res) => {
+// Brevo (Sendinblue) setup
+const SibApiV3Sdk = require("sib-api-v3-sdk");
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const apiKey = defaultClient.authentications["api-key"];
+apiKey.apiKey = process.env.BREVO_API_KEY;
+
+const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
+
+app.post("/api/bookings", async (req, res) => {
   const booking = req.body;
 
-  fs.readFile("bookings.json", "utf8", (err, data) => {
-    let bookings = [];
-    if (!err && data) {
-      bookings = JSON.parse(data);
-    }
+  const sender = {
+    email: "balogunmishael7@gmail.com",
+    name: "Illuminator Studio",
+  };
 
-    bookings.push(booking);
+  const receivers = [
+    {
+      email: booking.email, // Make sure you're collecting email from the form
+      name: booking.name,
+    },
+  ];
 
-    fs.writeFile("bookings.json", JSON.stringify(bookings, null, 2), (err) => {
-      if (err) {
-        console.error("❌ Error saving booking:", err);
-        return res.status(500).json({ message: "Failed to save booking" });
-      }
+  const subject = "📸 Booking Confirmation - Illuminator Studio";
+  const content = `
+    <h3>Hello ${booking.name},</h3>
+    <p>Your <strong>${booking.shootType}</strong> session has been successfully booked.</p>
+    <ul>
+      <li><strong>Package:</strong> ${booking.packagePrice} NGN</li>
+      <li><strong>Date:</strong> ${booking.date}</li>
+      <li><strong>Time:</strong> ${booking.time}</li>
+    </ul>
+    <p>We'll reach out to confirm more details. Thank you for choosing Illuminator Studio!</p>
+  `;
 
-      console.log("✅ Booking saved successfully");
-
-      // Moved the email logic INSIDE this block so 'booking' is in scope
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      });
-
-      const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: booking.email,
-        subject: "Booking Confirmation",
-        html: `
-          <p>Hi <strong>${booking.name}</strong>,</p>
-          <p>Thank you for booking a <strong>${booking.shootType}</strong> on <strong>${booking.date}</strong> at <strong>${booking.time}</strong>.</p>
-          <p>We'll contact you soon to confirm the details.</p>
-          <p>– Your Photographer</p>
-        `,
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log("❌ Email send error:", error);
-        } else {
-          console.log("✅ Email sent successfully:", info.response);
-        }
-      });
-
-      res.status(200).json({ message: "Booking received and email sent!" });
+  try {
+    const response = await tranEmailApi.sendTransacEmail({
+      sender,
+      to: receivers,
+      subject,
+      htmlContent: content,
     });
-  });
+
+    console.log("✅ Email sent successfully!");
+    console.log("📩 Brevo Message ID:", response.messageId);
+    res.status(200).json({ message: "Booking successful, email sent." });
+  } catch (error) {
+    console.error("❌ Failed to send email via Brevo.");
+    console.error("💥 Error message:", error.message);
+    if (error.response) {
+      console.error("📋 Brevo response body:", error.response.body);
+    }
+    res.status(500).json({ error: "Booking failed. Email could not be sent." });
+  }
 });
 
 app.listen(PORT, () => {

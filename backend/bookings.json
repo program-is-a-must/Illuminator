@@ -16,5 +16,57 @@
     "date": "2025-06-10",
     "time": "14:35",
     "message": "pls what time is better"
+  },
+  {
+    "shootType": "Family Shoot",
+    "packagePrice": "60,000",
+    "name": "Mishael Omokaphe Balogun",
+    "email": "balogunmishael7@gmail.com",
+    "date": "2023-12-31",
+    "time": "22:03",
+    "message": ""
+  },
+  {
+    "shootType": "Family Shoot",
+    "packagePrice": "60,000",
+    "name": "Mishael Omokaphe Balogun",
+    "email": "balogunmishael7@gmail.com",
+    "date": "2023-12-31",
+    "time": "22:03",
+    "message": ""
+  },
+  {
+    "name": "Mishael Omokaphe Balogun",
+    "email": "balogunmishael7@gmail.com",
+    "date": "2025-06-27",
+    "time": "14:54",
+    "shootType": "Studio"
+  },
+  {
+    "shootType": "Pre Wedding Shoot",
+    "packagePrice": "60,000",
+    "name": "mishael",
+    "email": "bamidelebenjamin5@gmail.com",
+    "date": "2025-06-06",
+    "time": "15:33",
+    "message": ""
+  },
+  {
+    "shootType": "Newborn Shoot",
+    "packagePrice": "105,000",
+    "name": "Mishael Omokaphe Balogun",
+    "email": "balogunmishael7@gmail.com",
+    "date": "2025-06-06",
+    "time": "16:32",
+    "message": ""
+  },
+  {
+    "shootType": "Personal Shoot",
+    "packagePrice": "52,500",
+    "name": "Favour Martins Ufuoma",
+    "email": "bamidelebenjamin5@gmail.com",
+    "date": "2025-06-17",
+    "time": "15:54",
+    "message": ""
   }
 ]

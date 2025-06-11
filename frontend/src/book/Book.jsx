@@ -16,12 +16,46 @@ function Book() {
   const [status, setStatus] = useState("");
 
   const packageOptions = {
-    "Family Shoot": ["32,500", "60,000", "90,000", "120,000", "150,000"],
-    "Pre Wedding Shoot": ["32,500", "60,000", "90,000", "120,000", "150,000"],
-    "Maternity Shoot": ["32,500", "60,000", "90,000", "120,000", "150,000"],
-    "Personal Shoot": ["30,000", "52,500", "78,750", "105,000", "131,500"],
-    "Newborn Shoot": ["40,000", "75,000", "105,000"],
-    "Kiddies Shoot": ["32,000", "60,000", "90,000", "120,000", "150,000"],
+    "Family Shoot": [
+      "1 Outfit-Package = 32,500",
+      "2 Outfit-Package = 60,000",
+      "3 Outfit-Package = 90,000",
+      "4 Outfit-Package = 120,000",
+      "5 Outfit-Package = 150,000",
+    ],
+    "Pre Wedding Shoot": [
+      "1 Outfit-Package = 32,500",
+      "2 Outfit-Package = 60,000",
+      "3 Outfit-Package = 90,000",
+      "4 Outfit-Package = 120,000",
+      "5 Outfit-Package = 150,000",
+    ],
+    "Maternity Shoot": [
+      "1 Outfit-Package = 32,500",
+      "2 Outfit-Package = 60,000",
+      "3 Outfit-Package = 90,000",
+      "4 Outfit-Package = 120,000",
+      "5 Outfit-Package = 150,000",
+    ],
+    "Personal Shoot": [
+      "1 Outfit-Package = 30,000",
+      "2 Outfit-Package = 52,500",
+      "3 Outfit-Package = 78,750",
+      "4 Outfit-Package = 105,000",
+      "5 Outfit-Package = 131,500",
+    ],
+    "Newborn Shoot": [
+      "1 Outfit-Package = 40,000",
+      "2 Outfit-Package = 75,000",
+      "3 Outfit-Package = 105,000",
+    ],
+    "Kiddies Shoot": [
+      "1 Outfit-Package = 32,000",
+      "2 Outfit-Package = 60,000",
+      "3 Outfit-Package = 90,000",
+      "4 Outfit-Package = 120,000",
+      "5 Outfit-Package = 150,000",
+    ],
   };
 
   const handleChange = (e) => {
@@ -45,8 +79,8 @@ function Book() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/bookings", formData);
-      setStatus("Booking successful!");
+      await axios.post("http://localhost:5000/api/bookings", formData); // Replace with your actual backend URL in production
+      setStatus("Booking successful! Confirmation email sent.");
       setFormData({
         shootType: "",
         packagePrice: "",
@@ -75,7 +109,7 @@ function Book() {
             onChange={handleChange}
             required
           >
-            <option value="">Select shoot type</option>
+            <option value="">Select Package type</option>
             {Object.keys(packageOptions).map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -125,6 +159,7 @@ function Book() {
             value={formData.email}
             onChange={handleChange}
             required
+            placeholder="e.g. your@email.com"
           />
         </div>
 
