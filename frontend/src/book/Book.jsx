@@ -79,8 +79,11 @@ function Book() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/bookings", formData); // Replace with your actual backend URL in production
-      setStatus("Booking successful! Confirmation email sent.");
+      await axios.post(
+        "https://adventurous-splendid-aluminum.glitch.me/api/bookings",
+        formData
+      );
+      setStatus("✅ Booking successful! Confirmation email sent.");
       setFormData({
         shootType: "",
         packagePrice: "",
@@ -91,7 +94,8 @@ function Book() {
         message: "",
       });
     } catch (error) {
-      setStatus("Booking failed. Please try again.");
+      console.error("Booking error:", error);
+      setStatus("❌ Booking failed. Please try again.");
     }
   };
 
