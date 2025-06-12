@@ -1,7 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import SibApiV3Sdk from "sib-api-v3-sdk";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -10,7 +13,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Brevo (Sendinblue) setup
-const SibApiV3Sdk = require("sib-api-v3-sdk");
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications["api-key"];
 apiKey.apiKey = process.env.BREVO_API_KEY;
@@ -27,7 +29,7 @@ app.post("/api/bookings", async (req, res) => {
 
   const receivers = [
     {
-      email: booking.email, // Make sure you're collecting email from the form
+      email: booking.email,
       name: booking.name,
     },
   ];
