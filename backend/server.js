@@ -67,6 +67,7 @@ app.post("/api/bookings", async (req, res) => {
   }
 });
 
-console.log(
-  "🚀 Backend server is live. Visit your Glitch app URL to access it."
-);
+// ✅ This starts the server on localhost
+app.listen(PORT, () => {
+  console.log(`🚀 Backend server running at http://localhost:${PORT}`);
+});

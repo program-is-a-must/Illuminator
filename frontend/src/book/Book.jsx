@@ -79,10 +79,7 @@ function Book() {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "https://adventurous-splendid-aluminum.glitch.me/api/bookings",
-        formData
-      );
+      await axios.post("http://localhost:5000/api/bookings", formData);
       setStatus("✅ Booking successful! Confirmation email sent.");
       setFormData({
         shootType: "",
